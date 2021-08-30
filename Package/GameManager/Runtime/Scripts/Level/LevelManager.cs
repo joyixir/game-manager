@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Joyixir.GameManager.Scripts.Utils;
 using Joyixir.Utils;
+using Joyixir.GameManager.Scripts.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Joyixir.GameManager.Scripts.Level
 {
+    [AddComponentMenu("Joyixir/GameManagement/LevelManager")]
     public class LevelManager : MonoBehaviour
     {
         public static LevelManager Instance;
@@ -17,7 +18,7 @@ namespace Joyixir.GameManager.Scripts.Level
 
         [SerializeField] private int minimumLevelToLoadAfterFirstFinish = 2;
         [SerializeField] private List<BaseLevelConfig> levelsConfigs;
-        [SerializeField] private BaseLevel Environment;
+        [SerializeField] private BaseLevel yourLevelPrefab;
 
         private bool _levelIsReady;
         internal static BaseLevel CurrentLevel { get; set; }
@@ -53,7 +54,7 @@ namespace Joyixir.GameManager.Scripts.Level
         {
             if (CurrentLevel != null)
                 Destroy(CurrentLevel.gameObject);
-            CurrentLevel = Instantiate(Environment, transform);
+            CurrentLevel = Instantiate(yourLevelPrefab, transform);
             CurrentLevel.InitializeLevel(GetLevelConfigToLoad());
         }
 

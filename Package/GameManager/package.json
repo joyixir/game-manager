@@ -1,6 +1,6 @@
 {
   "name": "com.joyixir.gamemanager",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "displayName": "Game Manager",
   "description": "A simple unity game management system to handle loading a game, its levels and saving the levels data such as score, gained money, level number. Also it provides enough public Actions for other classes to do things based on game status changes like listening to level finish to send analytics, etc.",
   "documentationUrl": "https://github.com/joyixir/game-manager",
