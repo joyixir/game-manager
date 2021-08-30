@@ -1,10 +1,10 @@
-using System;
 using Joyixir.GameManager.Scripts.Level;
 using Joyixir.GameManager.Scripts.Utils;
 using UnityEngine;
 
 namespace Joyixir.GameManager
 {
+    [AddComponentMenu("Joyixir/GameManagement/GameManager")]
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private bool startLevelOnAwake;
