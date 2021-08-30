@@ -1,0 +1,16 @@
+{
+    "name": "com.joyixir.gamemanager.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6d9c72ffa12794e02badc28f34fade48"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

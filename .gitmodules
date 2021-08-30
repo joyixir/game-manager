@@ -1,0 +1,4 @@
+[submodule "GameManager/Assets/Joyixir/Utility"]
+	path = GameManager/Assets/Joyixir/Utility
+	url = "https://github.com/joyixir/utility.git"
+	branch = submodule
