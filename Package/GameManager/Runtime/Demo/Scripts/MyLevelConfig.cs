@@ -1,9 +1,12 @@
 using Joyixir.GameManager.Scripts.Level;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Level", menuName = "My Level Config", order = 0)]
-public class MyLevelConfig : BaseLevelConfig
+namespace Joyixir.GameManager.Demo
 {
-    public GameObject Dummy;
-    public GameObject SecondDummy;
+    [CreateAssetMenu(fileName = "GameManagerDemoLevel", menuName = "Joyixir/GameManager/Demo/Levels", order = 0)]
+    public class MyLevelConfig : BaseLevelConfig
+    {
+        public GameObject Dummy;
+        public GameObject SecondDummy;
+    }
 }
