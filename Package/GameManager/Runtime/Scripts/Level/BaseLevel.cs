@@ -24,6 +24,7 @@ namespace Joyixir.GameManager.Scripts.Level
         {
             _levelConfig = config;
             FillVariables();
+            PrepareUIRequirementsabstract();
         }
 
         protected virtual void FillVariables()
@@ -54,6 +55,9 @@ namespace Joyixir.GameManager.Scripts.Level
         protected internal abstract float CalculateSatisfaction();
 
         protected internal abstract bool IsWon();
+
+        protected internal abstract void PrepareUIRequirementsabstract();
+
 
         internal void ForceFinishLevel()
         {
