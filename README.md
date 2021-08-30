@@ -16,7 +16,6 @@ There are three ways to use it
 
 ### Unitypackage
 - Go to the releases section and download the .unitypackage file
-- Extract the nested Utility unitypackage.
 
 
 ### PackageManager
