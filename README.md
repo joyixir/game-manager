@@ -45,6 +45,9 @@ Keep in mind that in order to have the needed dependencies you have to clone usi
 git clone --recurse-submodules -j8 https://github.com/joyixir/game-manager.git
 ```
 
+### Use as a submodule
+You can use submodule branch. In this case you have to handle dependencies yourself.
+
 
 # Use
 

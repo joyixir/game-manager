@@ -1,4 +1,0 @@
-[submodule "Utility"]
-	path = Utility
-	url = https://github.com/joyixir/utility.git
-	branch = submodule
