@@ -42,7 +42,7 @@ Open Window/PackageManager and head to My Registries. Install your desired versi
 You can just clone the repo and do whatever you like with it. Even to make it better.
 Keep in mind that in order to have the needed dependencies you have to clone using
 ```sh
-git clone --recurse-submodules https://github.com/joyixir/game-manager.git
+git clone --recurse-submodules -j8 https://github.com/joyixir/game-manager.git
 ```
 
 

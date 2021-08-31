@@ -66,7 +66,7 @@ namespace Joyixir.GameManager.Scripts.Level
 
         internal void Retry()
         {
-            ForceFinish();
+            CurrentLevel.ForceFinishLevel(LevelFinishStatus.Retry);
             Initialize();
         }
 
@@ -77,8 +77,12 @@ namespace Joyixir.GameManager.Scripts.Level
 
         internal void ForceWin()
         {
-            CurrentLevel.ForcedToWin = true;
-            ForceFinish();
+            CurrentLevel.ForceFinishLevel(LevelFinishStatus.Win);
+        }
+
+        internal void ForceLose()
+        {
+            CurrentLevel.ForceFinishLevel(LevelFinishStatus.Lose);
         }
 
         public BaseLevelConfig GetLevelConfigToLoad()

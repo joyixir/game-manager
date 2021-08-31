@@ -37,6 +37,8 @@ namespace Joyixir.GameManager
                 StartLevel();
             if (UnityEngine.Input.GetKeyDown(KeyCode.W))
                 ForceWin();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.L))
+                ForceLose();
             if (UnityEngine.Input.GetKeyDown(KeyCode.R))
                 Retry();
             if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow))
@@ -100,6 +102,11 @@ namespace Joyixir.GameManager
         public static void ForceWin()
         {
             LevelManager.Instance.ForceWin();
+        }
+
+        public static void ForceLose()
+        {
+            LevelManager.Instance.ForceLose();
         }
 
         public static void ForceFinish()
