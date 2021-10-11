@@ -8,7 +8,6 @@ namespace Joyixir.GameManager.Scripts.Level
         internal Action OnStart;
         internal Action<float> OnSatisfactionChanged;
         internal Action<LevelData> OnFinish;
-        internal Action<bool> OnTapping;
 
         protected abstract void SubscribeToLevelRelatedEvents();
         protected abstract void UnSubscribeFromLevelRelatedEvents();

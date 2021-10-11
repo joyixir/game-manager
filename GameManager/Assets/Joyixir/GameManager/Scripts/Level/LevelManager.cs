@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Joyixir.Utils;
 using Joyixir.GameManager.Scripts.Utils;
+using Joyixir.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace Joyixir.GameManager.Scripts.Level
@@ -10,19 +12,34 @@ namespace Joyixir.GameManager.Scripts.Level
     [AddComponentMenu("Joyixir/GameManagement/LevelManager")]
     public class LevelManager : MonoBehaviour
     {
+        #region Static region
+
         public static LevelManager Instance;
         public static Action<LevelData> OnLevelFinish;
         public static Action OnLevelStart;
         public static Action OnLevelReady;
-        public static Action<bool> OnTapping;
+        public static Action<float> OnSceneChangeProgressChanged;
+
+        internal static BaseLevel CurrentLevel { get; set; }
+        private static AsyncOperation AsyncOperationBasedOnCurrentLevelScene { get; set; }
+        internal static BaseLevelConfig CurrentLevelConfig => CurrentLevel.LevelConfig;
+
+        #endregion
+
+        #region Serialized
 
         [SerializeField] private int minimumLevelToLoadAfterFirstFinish = 2;
         [SerializeField] private List<BaseLevelConfig> levelsConfigs;
-        [SerializeField] private BaseLevel yourLevelPrefab;
+
+        #endregion
+
+        #region Private region
 
         private bool _levelIsReady;
-        internal static BaseLevel CurrentLevel { get; set; }
-        internal static BaseLevelConfig CurrentLevelConfig => CurrentLevel.LevelConfig;
+        private BaseLevelConfig _pickedConfig;
+
+        #endregion
+
 
         public static int PlayerLevel
         {
@@ -41,7 +58,6 @@ namespace Joyixir.GameManager.Scripts.Level
             CreateNewLevel();
             HandleErrors();
             _levelIsReady = true;
-            OnLevelReady?.Invoke();
         }
 
         private void HandleErrors()
@@ -52,10 +68,60 @@ namespace Joyixir.GameManager.Scripts.Level
 
         private void CreateNewLevel()
         {
+            _pickedConfig = GetLevelConfigToLoad();
+            if (_pickedConfig.SceneName.ToString() == SceneManager.GetActiveScene().name)
+            {
+                CreateLevelWithPrefab();
+                OnLevelReady?.Invoke();
+            }
+            else
+            {
+                CreateLevelWithScene();
+            }
+        }
+
+        private void CreateLevelWithPrefab()
+        {
             if (CurrentLevel != null)
                 Destroy(CurrentLevel.gameObject);
-            CurrentLevel = Instantiate(yourLevelPrefab, transform);
-            CurrentLevel.InitializeLevel(GetLevelConfigToLoad());
+            CreateAndInitializeLevel();
+        }
+
+        private void CreateAndInitializeLevel()
+        {
+            CurrentLevel = Instantiate(_pickedConfig.yourLevelPrefab, transform);
+            CurrentLevel.InitializeLevel(_pickedConfig);
+        }
+
+        private void CreateLevelWithScene()
+        {
+            if (CurrentLevel != null)
+                Destroy(CurrentLevel.gameObject);
+
+
+            AsyncOperationBasedOnCurrentLevelScene = SceneManager.LoadSceneAsync(_pickedConfig.SceneName.ToString());
+            AsyncOperationBasedOnCurrentLevelScene.completed += InitializeLevelAfterSceneLoad;
+        }
+
+        private void InitializeLevelAfterSceneLoad(AsyncOperation obj)
+        {
+            CreateAndInitializeLevel();
+            AsyncOperationBasedOnCurrentLevelScene.completed -= InitializeLevelAfterSceneLoad;
+            OnLevelReady?.Invoke();
+        }
+
+        // This Function use for Loading view when scene changing.
+        // UI view can listen to OnSceneChangeProgressChanged action.
+        // This function do not tested just.
+        private IEnumerator SceneLoadingBehavior()
+        {
+            while (true)
+            {
+                yield return new WaitForEndOfFrame();
+                OnSceneChangeProgressChanged?.Invoke(AsyncOperationBasedOnCurrentLevelScene.progress);
+                if (AsyncOperationBasedOnCurrentLevelScene.isDone)
+                    break;
+            }
         }
 
         internal void Skip()
@@ -101,7 +167,6 @@ namespace Joyixir.GameManager.Scripts.Level
         {
             CurrentLevel.OnStart -= Started;
             CurrentLevel.OnFinish -= FinishLevel;
-            CurrentLevel.OnTapping -= TapMode;
         }
 
         internal void StartLevel()
@@ -116,12 +181,6 @@ namespace Joyixir.GameManager.Scripts.Level
         {
             CurrentLevel.OnStart += Started;
             CurrentLevel.OnFinish += FinishLevel;
-            CurrentLevel.OnTapping += TapMode;
-        }
-
-        private void TapMode(bool tappingEnabled)
-        {
-            OnTapping?.Invoke(tappingEnabled);
         }
 
         private void Started()

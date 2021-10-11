@@ -2,7 +2,7 @@ using Joyixir.GameManager.Scripts.Level;
 using Joyixir.GameManager.Scripts.Utils;
 using UnityEngine;
 
-namespace Joyixir.GameManager
+namespace Joyixir.GameManager.Scripts
 {
     [AddComponentMenu("Joyixir/GameManagement/GameManager")]
     public class GameManager : MonoBehaviour
@@ -12,6 +12,7 @@ namespace Joyixir.GameManager
 
         private void Awake()
         {
+            DontDestroyOnLoad(this);
             FillComponents();
         }
 

@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Joyixir/GameManager/Demo/Scene/InitialScene.unity
+    guid: 776d60cff541a49618df99fbff52c8cf
+  - enabled: 1
+    path: Assets/Joyixir/GameManager/Demo/Scene/LevelScene.unity
+    guid: b81c9bb4f6e7147feadb010fddc10072
+  - enabled: 1
+    path: Assets/Joyixir/GameManager/Demo/Scene/SimpleLevelScene.unity
+    guid: c14b54478cde34469aa2e22276ce9675
   m_configObjects: {}
