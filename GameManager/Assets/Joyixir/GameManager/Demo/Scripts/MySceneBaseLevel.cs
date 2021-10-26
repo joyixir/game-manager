@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Joyixir.GameManager.Demo.Scripts
 {
-    public class MySceneBseLevel : BaseLevel
+    public class MySceneBaseLevel : BaseLevel
     {
         private MySceneBaseLevelConfig _config;
         [SerializeField] private Transform dummyPlacement1;
