@@ -8,7 +8,7 @@ namespace Joyixir.GameManager.Scripts
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private bool startLevelOnAwake;
-        public static object TotalScore => GameManagementPlayerPrefs.PlayerTotalScore;
+        public static int TotalScore => GameManagementPlayerPrefs.PlayerTotalScore;
 
         private void Awake()
         {
