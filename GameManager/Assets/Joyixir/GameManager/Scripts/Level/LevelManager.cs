@@ -71,7 +71,7 @@ namespace Joyixir.GameManager.Scripts.Level
         private void CreateNewLevel()
         {
             _pickedConfig = GetLevelConfigToLoad();
-            if (_pickedConfig.SceneName.ToString() == SceneManager.GetActiveScene().name)
+            if (string.IsNullOrEmpty(_pickedConfig.SceneName) || _pickedConfig.SceneName.ToString() == SceneManager.GetActiveScene().name)
             {
                 CreateLevelWithPrefab();
                 BroadcastLevelReady();
