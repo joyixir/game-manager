@@ -14,7 +14,8 @@ namespace Joyixir.GameManager.Scripts.Level
     {
         #region Static region
 
-        public static LevelManager Instance;
+        internal static LevelManager Instance => _instance;
+        private static LevelManager _instance;
         public static Action<LevelData> OnLevelFinish;
         public static Action OnLevelStart;
         public static Action OnLevelReady;
@@ -49,7 +50,7 @@ namespace Joyixir.GameManager.Scripts.Level
 
         private void Awake()
         {
-            if (!Instance) Instance = this;
+            if (!Instance) _instance = this;
             if (Instance != this) Destroy(gameObject);
         }
 
@@ -151,7 +152,7 @@ namespace Joyixir.GameManager.Scripts.Level
             CurrentLevel.ForceFinishLevel(LevelFinishStatus.Lose);
         }
 
-        public BaseLevelConfig GetLevelConfigToLoad()
+        private BaseLevelConfig GetLevelConfigToLoad()
         {
             if (minimumLevelToLoadAfterFirstFinish >= levelsConfigs.Count)
                 return levelsConfigs.PickRandom();

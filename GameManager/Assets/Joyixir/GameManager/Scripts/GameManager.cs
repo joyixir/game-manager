@@ -53,12 +53,12 @@ namespace Joyixir.GameManager.Scripts
         {
         }
 
-        public void InitializeLevelManager()
+        public static void InitializeLevelManager()
         {
             LevelManager.Instance.Initialize();
         }
 
-        public void StartLevel()
+        public static void StartLevel()
         {
             LevelManager.Instance.StartLevel();
         }
