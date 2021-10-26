@@ -9,11 +9,20 @@ namespace Joyixir.GameManager.Scripts
     {
         [SerializeField] private bool startLevelOnAwake;
         public static int TotalScore => GameManagementPlayerPrefs.PlayerTotalScore;
+        private static GameManager _instance;
 
         private void Awake()
         {
-            DontDestroyOnLoad(this);
-            FillComponents();
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(this);
+                FillComponents();
+            }
         }
 
         private void Start()
