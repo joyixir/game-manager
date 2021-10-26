@@ -69,7 +69,7 @@ namespace Joyixir.GameManager.Scripts
 
         public static void StartLevel()
         {
-            LevelManager.Instance.StartLevel();
+            LevelManager.Instance.StartLevelWheneverReady();
         }
 
         private void SubscribeToLevelManager()

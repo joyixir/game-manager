@@ -38,6 +38,8 @@ namespace Joyixir.GameManager.Scripts.Level
 
         private bool _levelIsReady;
         private BaseLevelConfig _pickedConfig;
+        private bool levelStarted;
+        private bool levelQueuedForStart;
 
         #endregion
 
@@ -58,7 +60,6 @@ namespace Joyixir.GameManager.Scripts.Level
         {
             CreateNewLevel();
             HandleErrors();
-            _levelIsReady = true;
         }
 
         private void HandleErrors()
@@ -73,12 +74,18 @@ namespace Joyixir.GameManager.Scripts.Level
             if (_pickedConfig.SceneName.ToString() == SceneManager.GetActiveScene().name)
             {
                 CreateLevelWithPrefab();
-                OnLevelReady?.Invoke();
+                BroadcastLevelReady();
             }
             else
             {
                 CreateLevelWithScene();
             }
+        }
+
+        private void BroadcastLevelReady()
+        {
+            _levelIsReady = true;
+            OnLevelReady?.Invoke();
         }
 
         private void CreateLevelWithPrefab()
@@ -99,7 +106,7 @@ namespace Joyixir.GameManager.Scripts.Level
             if (CurrentLevel != null)
                 Destroy(CurrentLevel.gameObject);
 
-
+            StartCoroutine(SceneLoadingBehavior());
             AsyncOperationBasedOnCurrentLevelScene = SceneManager.LoadSceneAsync(_pickedConfig.SceneName.ToString());
             AsyncOperationBasedOnCurrentLevelScene.completed += InitializeLevelAfterSceneLoad;
         }
@@ -108,7 +115,7 @@ namespace Joyixir.GameManager.Scripts.Level
         {
             CreateAndInitializeLevel();
             AsyncOperationBasedOnCurrentLevelScene.completed -= InitializeLevelAfterSceneLoad;
-            OnLevelReady?.Invoke();
+            BroadcastLevelReady();
         }
 
         // This Function use for Loading view when scene changing.
@@ -120,6 +127,7 @@ namespace Joyixir.GameManager.Scripts.Level
             {
                 yield return new WaitForEndOfFrame();
                 OnSceneChangeProgressChanged?.Invoke(AsyncOperationBasedOnCurrentLevelScene.progress);
+                Debug.Log(AsyncOperationBasedOnCurrentLevelScene.progress);
                 if (AsyncOperationBasedOnCurrentLevelScene.isDone)
                     break;
             }
@@ -170,12 +178,32 @@ namespace Joyixir.GameManager.Scripts.Level
             CurrentLevel.OnFinish -= FinishLevel;
         }
 
-        internal void StartLevel()
+        internal void StartLevelWheneverReady()
         {
-            if (!_levelIsReady)
+            if (levelStarted) return;
+            if (!_levelIsReady && levelQueuedForStart)
+                return;
+
+            if (_levelIsReady)
+            {
+                StartLevelNow();
+            }
+            else
+            {
+                levelQueuedForStart = true;
+                OnLevelReady += StartLevelWheneverReady;
                 Initialize();
+            }
+        }
+
+        private void StartLevelNow()
+        {
             SubscribeToLevel();
             CurrentLevel.StartLevel();
+            if (levelQueuedForStart)
+                OnLevelReady -= StartLevelWheneverReady;
+            levelStarted = true;
+            levelQueuedForStart = false;
         }
 
         private void SubscribeToLevel()
@@ -208,6 +236,7 @@ namespace Joyixir.GameManager.Scripts.Level
             UnSubscribeFromLevel();
             OnLevelFinish?.Invoke(levelData);
             _levelIsReady = false;
+            levelStarted = false;
         }
 
         private int CalculateMoneyFromScore(int score)
