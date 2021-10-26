@@ -127,7 +127,6 @@ namespace Joyixir.GameManager.Scripts.Level
             {
                 yield return new WaitForEndOfFrame();
                 OnSceneChangeProgressChanged?.Invoke(AsyncOperationBasedOnCurrentLevelScene.progress);
-                Debug.Log(AsyncOperationBasedOnCurrentLevelScene.progress);
                 if (AsyncOperationBasedOnCurrentLevelScene.isDone)
                     break;
             }
