@@ -1,8 +1,8 @@
-using Joyixir.GameManager.Scripts.Level;
-using Joyixir.GameManager.Scripts.Utils;
+using Joyixir.GameManager.Level;
+using Joyixir.GameManager.Utils;
 using UnityEngine;
 
-namespace Joyixir.GameManager.Scripts
+namespace Joyixir.GameManager
 {
     [AddComponentMenu("Joyixir/GameManagement/GameManager")]
     public class GameManager : MonoBehaviour

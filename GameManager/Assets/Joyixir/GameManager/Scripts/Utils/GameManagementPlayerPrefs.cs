@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Joyixir.GameManager.Scripts.Utils
+namespace Joyixir.GameManager.Utils
 {
     internal static class GameManagementPlayerPrefs
     {

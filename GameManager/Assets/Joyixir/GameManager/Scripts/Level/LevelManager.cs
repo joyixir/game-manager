@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Joyixir.GameManager.Scripts.Utils;
+using Joyixir.GameManager.Utils;
 using Joyixir.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-namespace Joyixir.GameManager.Scripts.Level
+namespace Joyixir.GameManager.Level
 {
     [AddComponentMenu("Joyixir/GameManagement/LevelManager")]
     public class LevelManager : MonoBehaviour
