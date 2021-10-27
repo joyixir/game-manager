@@ -1,6 +1,7 @@
-using Joyixir.GameManager.Scripts.Level;
+using Joyixir.GameManager.Level;
 using TMPro;
 using UnityEngine;
+
 namespace Joyixir.GameManager.Demo
 {
     public class LevelManagerListener : MonoBehaviour

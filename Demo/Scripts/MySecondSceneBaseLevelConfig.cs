@@ -1,7 +1,7 @@
-using Joyixir.GameManager.Scripts.Level;
+using Joyixir.GameManager.Level;
 using UnityEngine;
 
-namespace Joyixir.GameManager.Demo.Scripts
+namespace Joyixir.GameManager.Demo
 {
     [CreateAssetMenu(fileName = "GameManagerSecondSceneBaseDemoLevel", menuName = "Joyixir/GameManager/Demo/GameManagerSecondSceneBaseDemoLevel", order = 0)]
     public class MySecondSceneBaseLevelConfig : BaseLevelConfig
