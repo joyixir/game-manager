@@ -54,7 +54,21 @@ You can use submodule branch. In this case you have to handle dependencies yours
 Check the demo folder. 
 Generally, you need to inherit from BaseLevelConfig and BaseLevel.
 
+## LevelConfig
 LevelConfig is the config that you need in order to initialize a level, like player speed, a list of obstacles or road to generate.
+
+The package supports scene per config types, you just have to set the scene name in the build config when you override from BaseLevelConfig, like this:
+
+```csharp
+// MySceneBasedLevelConfig.cs
+public override string SceneName => "SceneBasedLevelScene";
+```
+this way, the LevelManager loads this scene and then starts its level.
+You can use an empty string in case you want to load your level in the same scene that you have the GameManager GameObject in it. **This method is not recommended specially when you have multiple level type**
+
+And lastly, you have to assign the level prefab through its own config.
+
+## Level and LevelManager
 
 Level is your rules of what the player will do. 
 Implementing a logic for calculating satisfaction and what “win” means is mandatory in what you inherited. 
@@ -68,7 +82,7 @@ public static Action<LevelData> OnLevelFinish;
 public static Action OnLevelStart;
 public static Action OnLevelReady;
 ```
-#####What is LevelData?
+## What is LevelData?
 The short answer is the simplified data of ANY kind of levels. Doesn’t matter if a baseball or a shooter, simulation or a runner, every sort of level should be simplified to some general parameters.
 You will have to implement the below functions within your Level in order to help GameManager, UI, Analytics, Currency .etc to work properly.
 ```csharp
@@ -90,16 +104,20 @@ protected internal override bool IsWon()
     return CalculateSatisfaction() > .6f; // Your rules
 }
 ```
+
+## LevelData
 The implemented functions will help BaseLevel to make a LevelData for others to use.
 ```csharp
 // BaseLevel.cs
 public class LevelData
 {
     public int EarnedMoney;
-    public bool Forced;
+    public LevelFinishStatus ForcedStatus;
     public float Satisfaction;
     public int Score;
+    public int LevelNumber;
     public bool WinStatus;
+
     public static LevelData GenerateFromLevel(BaseLevel level)
     {
         var levelData = new LevelData();
@@ -107,11 +125,14 @@ public class LevelData
         levelData.Score = level.CalculateScore();
         levelData.WinStatus = level.IsWon();
         levelData.Satisfaction = level.CalculateSatisfaction();
+        levelData.ForcedStatus = level.ForcedFinishStatus;
+        levelData.LevelNumber = level.LevelNumber;
         return levelData;
     }
 }
 ```
 
+*\* We encourage you to use the provided ```public``` and ```public static``` variables and avoid using the ```internal``` ones.*
 ## License
 
 MIT

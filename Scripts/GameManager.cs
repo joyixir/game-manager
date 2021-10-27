@@ -2,17 +2,27 @@ using Joyixir.GameManager.Scripts.Level;
 using Joyixir.GameManager.Scripts.Utils;
 using UnityEngine;
 
-namespace Joyixir.GameManager
+namespace Joyixir.GameManager.Scripts
 {
     [AddComponentMenu("Joyixir/GameManagement/GameManager")]
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private bool startLevelOnAwake;
-        public static object TotalScore => GameManagementPlayerPrefs.PlayerTotalScore;
+        public static int TotalScore => GameManagementPlayerPrefs.PlayerTotalScore;
+        private static GameManager _instance;
 
         private void Awake()
         {
-            FillComponents();
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(this);
+                FillComponents();
+            }
         }
 
         private void Start()
@@ -52,14 +62,14 @@ namespace Joyixir.GameManager
         {
         }
 
-        public void InitializeLevelManager()
+        public static void InitializeLevelManager()
         {
             LevelManager.Instance.Initialize();
         }
 
-        public void StartLevel()
+        public static void StartLevel()
         {
-            LevelManager.Instance.StartLevel();
+            LevelManager.Instance.StartLevelWheneverReady();
         }
 
         private void SubscribeToLevelManager()

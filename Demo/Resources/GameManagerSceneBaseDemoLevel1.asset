@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4553002091f7a43dc9120b0a2613af66, type: 3}
-  m_Name: Level2
+  m_Script: {fileID: 11500000, guid: d28d2f154b4745f4939694b8abdebaa6, type: 3}
+  m_Name: GameManagerSceneBaseDemoLevel1
   m_EditorClassIdentifier: 
+  yourLevelPrefab: {fileID: 8222125869813640134, guid: 7138d05791cae446bbe46b828258c835, type: 3}
   Dummy: {fileID: 3784286209265341146, guid: e89c0e2b4cf3640329dd3d6f95c377fb, type: 3}
   SecondDummy: {fileID: 7939812191499412142, guid: 9d013762145da410fb84a8dcca509a62, type: 3}
