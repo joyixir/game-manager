@@ -161,14 +161,24 @@ namespace Joyixir.GameManager.Scripts.Level
 
         private BaseLevelConfig GetLevelConfigToLoad()
         {
-            if (minimumLevelToLoadAfterFirstFinish >= levelsConfigs.Count)
-                return levelsConfigs.PickRandom();
+            if (levelsConfigs.Count == 0)
+                throw new Exception("No levels to load");
 
-            var playerFinishedAllLevels = PlayerLevel > levelsConfigs.Count - 1;
-            var levelIndex = playerFinishedAllLevels
-                ? Random.Range(minimumLevelToLoadAfterFirstFinish, levelsConfigs.Count)
-                : PlayerLevel;
-            return levelsConfigs[levelIndex];
+            var configToLoad = levelsConfigs[0];
+            if (minimumLevelToLoadAfterFirstFinish < levelsConfigs.Count)
+            {
+                var playerFinishedAllLevels = PlayerLevel > levelsConfigs.Count - 1;
+                var levelIndex = playerFinishedAllLevels
+                    ? Random.Range(minimumLevelToLoadAfterFirstFinish, levelsConfigs.Count)
+                    : PlayerLevel;
+                configToLoad = levelsConfigs[levelIndex];
+            }
+            else
+                configToLoad = levelsConfigs.PickRandom();
+
+            if (configToLoad == null)
+                throw new Exception("You assigned a null element to configs");
+            return configToLoad;
         }
 
         private void UnSubscribeFromLevel()
