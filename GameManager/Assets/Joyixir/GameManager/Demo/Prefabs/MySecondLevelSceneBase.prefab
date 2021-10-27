@@ -122,7 +122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7246886673919818794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: -1.48}
+  m_LocalPosition: {x: -1.91, y: 0.2, z: -1.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6486160882458499023}
@@ -137,9 +137,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8053255074471948672}
-  - component: {fileID: 8222125869813640134}
+  - component: {fileID: 2499674957443581202}
   m_Layer: 0
-  m_Name: MyLevelSceneBase
+  m_Name: MySecondLevelSceneBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8222125869813640134
+--- !u!114 &2499674957443581202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8345176460015995102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5929b1764bb82485f999481497b2470c, type: 3}
+  m_Script: {fileID: 11500000, guid: c0fc951db5f044a9f9fec3e8d15cd884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dummyPlacement1: {fileID: 3942603140928442393}
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8403408784546045614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.81, y: 0.2, z: 2.21}
+  m_LocalPosition: {x: 0, y: 0.2, z: 1.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6486160882458499023}
