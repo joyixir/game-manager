@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Joyixir.GameManager.Scripts.Level
+namespace Joyixir.GameManager.Level
 {
     public abstract class BaseLevelConfig : ScriptableObject
     {
