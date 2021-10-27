@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4553002091f7a43dc9120b0a2613af66, type: 3}
   m_Name: GameManagerDemoLevel1
   m_EditorClassIdentifier: 
+  yourLevelPrefab: {fileID: 868901722180812452, guid: 049c8ee63f2af4be388d5b3b836572be, type: 3}
   Dummy: {fileID: 7923328704068599571, guid: d21e9263a93164b52b663deac25ffff3, type: 3}
   SecondDummy: {fileID: 6033949169001125516, guid: 64c030c54d7644291901f73da11cc727, type: 3}

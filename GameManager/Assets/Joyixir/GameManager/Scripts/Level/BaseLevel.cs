@@ -8,7 +8,6 @@ namespace Joyixir.GameManager.Scripts.Level
         internal Action OnStart;
         internal Action<float> OnSatisfactionChanged;
         internal Action<LevelData> OnFinish;
-        internal Action<bool> OnTapping;
 
         protected abstract void SubscribeToLevelRelatedEvents();
         protected abstract void UnSubscribeFromLevelRelatedEvents();
@@ -134,7 +133,7 @@ namespace Joyixir.GameManager.Scripts.Level
 
         public override string ToString()
         {
-            var export = $"EarnedMoney: {EarnedMoney}, Score: {Score}, WinStatus: {WinStatus}, Satisfaction: {Satisfaction}, ForcedTo?: {ForcedStatus.ToString()}";
+            var export = $"EarnedMoney: {EarnedMoney}, Score: {Score}, WinStatus: {WinStatus}, Satisfaction: {Satisfaction}, ForcedTo?: {ForcedStatus.ToString()}, LevelNumber {LevelNumber}";
             return export;
         }
     }

@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Joyixir.GameManager.Demo.Scripts
 {
-    public class MyLevel : BaseLevel
+    public class MySecondSceneBaseLevel : BaseLevel
     {
-        private MyLevelConfig _config;
+        private MySecondSceneBaseLevelConfig _config;
         [SerializeField] private Transform dummyPlacement1;
         [SerializeField] private Transform dummyPlacement2;
         public override void InitializeLevel(BaseLevelConfig config) // Before starting the level. (Usually behind start panel)
         {
             base.InitializeLevel(config);
-            _config = (MyLevelConfig)config;
+            _config = (MySecondSceneBaseLevelConfig)config;
             InstantiateSomeLevelThings();
         }
 
