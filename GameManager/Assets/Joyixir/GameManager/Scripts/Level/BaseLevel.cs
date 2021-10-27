@@ -133,7 +133,7 @@ namespace Joyixir.GameManager.Scripts.Level
 
         public override string ToString()
         {
-            var export = $"EarnedMoney: {EarnedMoney}, Score: {Score}, WinStatus: {WinStatus}, Satisfaction: {Satisfaction}, ForcedTo?: {ForcedStatus.ToString()}";
+            var export = $"EarnedMoney: {EarnedMoney}, Score: {Score}, WinStatus: {WinStatus}, Satisfaction: {Satisfaction}, ForcedTo?: {ForcedStatus.ToString()}, LevelNumber {LevelNumber}";
             return export;
         }
     }
