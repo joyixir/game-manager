@@ -18,6 +18,7 @@ namespace Joyixir.GameManager.Level
         public static Action<LevelData> OnLevelFinish;
         public static Action OnLevelStart;
         public static Action OnLevelReady;
+        public static Action<int> OnLevelUnlocked; // Starts from 0
         public static Action<float> OnSceneChangeProgressChanged;
 
         internal static BaseLevel CurrentLevel { get; set; }
@@ -270,6 +271,7 @@ namespace Joyixir.GameManager.Level
         private static void IncreasePlayerLevel()
         {
             PlayerLevel++;
+            OnLevelUnlocked?.Invoke(PlayerLevel);
         }
     }
 }
