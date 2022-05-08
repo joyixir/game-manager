@@ -24,8 +24,15 @@ namespace Joyixir.GameManager.Level
         {
             _levelNumber = LevelManager.PlayerLevel;
             _levelConfig = config;
+            NameLevelGameObject();
             FillVariables();
             PrepareUIRequirementsabstract();
+        }
+
+        private void NameLevelGameObject()
+        {
+            // DEBUGGING PURPOSES
+            gameObject.name = $"{GetType().Name}_{LevelManager.LastLoadedLevelRealIndex}";
         }
 
         protected virtual void FillVariables()
