@@ -101,6 +101,11 @@ namespace Joyixir.GameManager.Level
             CurrentLevel.InitializeLevel(_pickedConfig);
         }
 
+        internal static int GetLevelAttempts(int levelNumber)
+        {
+            return GameManagementPlayerPrefs.GetLevelAttempts(levelNumber);
+        }
+
         private void CreateLevelWithScene()
         {
             if (CurrentLevel != null)
@@ -216,6 +221,7 @@ namespace Joyixir.GameManager.Level
         private void StartLevelNow()
         {
             SubscribeToLevel();
+            GameManagementPlayerPrefs.AttemptLevel(CurrentLevel.LevelNumber);
             CurrentLevel.StartLevel();
             if (levelQueuedForStart)
                 OnLevelReady -= StartLevelWheneverReady;
