@@ -24,8 +24,15 @@ namespace Joyixir.GameManager.Level
         {
             _levelNumber = LevelManager.PlayerLevel;
             _levelConfig = config;
+            NameLevelGameObject();
             FillVariables();
             PrepareUIRequirementsabstract();
+        }
+
+        private void NameLevelGameObject()
+        {
+            // DEBUGGING PURPOSES
+            gameObject.name = $"{GetType().Name}_{LevelManager.LastLoadedLevelRealIndex}";
         }
 
         protected virtual void FillVariables()
@@ -83,13 +90,16 @@ namespace Joyixir.GameManager.Level
         public float Satisfaction;
         public int Score;
         public int LevelNumber;
+        public int HumanReadableLevelNumber => LevelNumber + 1;
         public bool WinStatus;
+        public int Attempt;
 
         public static LevelData GenerateFromLevel(BaseLevel level)
         {
             var levelData = new LevelData();
             levelData.ForcedStatus = level.ForcedFinishStatus;
             levelData.LevelNumber = level.LevelNumber;
+            levelData.Attempt = LevelManager.GetLevelAttempts(level.LevelNumber);
             if (levelData.ForcedStatus == LevelFinishStatus.Retry)
             {
                 levelData.EarnedMoney = 0;
