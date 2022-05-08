@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Joyixir.GameManager.Utils;
-using Joyixir.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -19,6 +18,7 @@ namespace Joyixir.GameManager.Level
         public static Action<LevelData> OnLevelFinish;
         public static Action OnLevelStart;
         public static Action OnLevelReady;
+        public static Action<int> OnLevelUnlocked; // Starts from 0
         public static Action<float> OnSceneChangeProgressChanged;
 
         internal static BaseLevel CurrentLevel { get; set; }
@@ -43,7 +43,8 @@ namespace Joyixir.GameManager.Level
 
         #endregion
 
-
+        public static int LastLoadedLevelRealIndex { get; private set; }
+        
         public static int PlayerLevel
         {
             get => GameManagementPlayerPrefs.PlayerLevel;
@@ -99,6 +100,11 @@ namespace Joyixir.GameManager.Level
         {
             CurrentLevel = Instantiate(_pickedConfig.yourLevelPrefab, transform);
             CurrentLevel.InitializeLevel(_pickedConfig);
+        }
+
+        internal static int GetLevelAttempts(int levelNumber)
+        {
+            return GameManagementPlayerPrefs.GetLevelAttempts(levelNumber);
         }
 
         private void CreateLevelWithScene()
@@ -163,22 +169,30 @@ namespace Joyixir.GameManager.Level
         {
             if (levelsConfigs.Count == 0)
                 throw new Exception("No levels to load");
+            var levelIndexToLoad = GetLevelIndexToLoad();
 
-            var configToLoad = levelsConfigs[0];
+            var configToLoad = levelsConfigs[levelIndexToLoad];
+
+            if (configToLoad == null)
+                throw new Exception("You assigned a null element to configs");
+            LastLoadedLevelRealIndex = levelIndexToLoad;
+            return configToLoad;
+        }
+
+        private int GetLevelIndexToLoad()
+        {
+            var index = 0;
             if (minimumLevelToLoadAfterFirstFinish < levelsConfigs.Count)
             {
                 var playerFinishedAllLevels = PlayerLevel > levelsConfigs.Count - 1;
                 var levelIndex = playerFinishedAllLevels
                     ? Random.Range(minimumLevelToLoadAfterFirstFinish, levelsConfigs.Count)
                     : PlayerLevel;
-                configToLoad = levelsConfigs[levelIndex];
+                index = levelIndex;
             }
             else
-                configToLoad = levelsConfigs.PickRandom();
-
-            if (configToLoad == null)
-                throw new Exception("You assigned a null element to configs");
-            return configToLoad;
+                index = Random.Range(0, levelsConfigs.Count);
+            return index;
         }
 
         private void UnSubscribeFromLevel()
@@ -208,6 +222,7 @@ namespace Joyixir.GameManager.Level
         private void StartLevelNow()
         {
             SubscribeToLevel();
+            GameManagementPlayerPrefs.AttemptLevel(CurrentLevel.LevelNumber);
             CurrentLevel.StartLevel();
             if (levelQueuedForStart)
                 OnLevelReady -= StartLevelWheneverReady;
@@ -256,6 +271,7 @@ namespace Joyixir.GameManager.Level
         private static void IncreasePlayerLevel()
         {
             PlayerLevel++;
+            OnLevelUnlocked?.Invoke(PlayerLevel);
         }
     }
 }

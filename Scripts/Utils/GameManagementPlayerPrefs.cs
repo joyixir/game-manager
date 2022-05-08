@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Joyixir.GameManager.Utils
 {
@@ -14,6 +15,17 @@ namespace Joyixir.GameManager.Utils
         {
             set => PlayerPrefs.SetInt("Joyixir_TotalScore", value);
             get => PlayerPrefs.GetInt("Joyixir_TotalScore", 0);
+        }
+
+        public static int GetLevelAttempts(int levelNumber)
+        {
+            return PlayerPrefs.GetInt($"Joyixir_Level_{levelNumber}_Attempts", 0);
+        }
+
+        public static void AttemptLevel(int levelNumber)
+        {
+            var newAttempt = GetLevelAttempts(levelNumber) + 1;
+            PlayerPrefs.SetInt($"Joyixir_Level_{levelNumber}_Attempts", newAttempt);
         }
     }
 }
