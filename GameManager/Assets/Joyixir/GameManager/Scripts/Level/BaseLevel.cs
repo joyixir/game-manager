@@ -90,6 +90,7 @@ namespace Joyixir.GameManager.Level
         public float Satisfaction;
         public int Score;
         public int LevelNumber;
+        public int HumanReadableLevelNumber => LevelNumber + 1;
         public bool WinStatus;
         public int Attempt;
 
