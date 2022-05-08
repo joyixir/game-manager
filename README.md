@@ -1,6 +1,7 @@
 # GameManager
 
- A simple unity game management system to handle loading a game, its levels and saving the levels data such as score, gained money, level number. Also it provides enough public Actions for other classes to do things based on game status changes like listening to level finish to send analytics, etc. 
+ A simple unity game management system to handle loading a game, its levels and saving the levels data such as score, gained money, level number. Technically its a full game circle.
+ Also it provides enough public Actions for other classes to do things based on game status changes like listening to level finish to send analytics, etc. 
 
 ## Features
 
@@ -8,11 +9,12 @@
 - Handles level number, score, money, satisfaction
 - Initialization is separated from level start
 - Handles all required actions
+- Tracks number of attempts
 
 
 ## Installation
 There are three ways to use it
-**Keep in mind that this repo is dependent to Unity TMPro and [Joyixir Utility](https://github.com/joyixir/utility)**
+**Keep in mind that this repo is dependent to Unity TMPro**
 
 ### Unitypackage
 - Go to the releases section and download the .unitypackage file
@@ -78,6 +80,7 @@ public static LevelManager Instance;
 public static Action<LevelData> OnLevelFinish;
 public static Action OnLevelStart;
 public static Action OnLevelReady;
+public static Action<int> OnLevelUnlocked; // Starts from 0
 ```
 ## What is LevelData?
 The short answer is the simplified data of ANY kind of levels. Doesn’t matter if a baseball or a shooter, simulation or a runner, every sort of level should be simplified to some general parameters.
@@ -113,7 +116,9 @@ public class LevelData
     public float Satisfaction;
     public int Score;
     public int LevelNumber;
+    public int HumanReadableLevelNumber => LevelNumber + 1;
     public bool WinStatus;
+    public int Attempt;
 
     public static LevelData GenerateFromLevel(BaseLevel level)
     {
