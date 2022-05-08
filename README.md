@@ -22,6 +22,7 @@ There are three ways to use it
 
 ### PackageManager
 ##### Scoped Registry
+**No longer supported(Latest version is 2.1.0)**
 TO add Joyixir scope to NPM scopedregistry, add the following to manifest.json
 ```json
 {
