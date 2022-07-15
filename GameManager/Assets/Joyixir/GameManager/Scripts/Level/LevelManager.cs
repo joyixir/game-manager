@@ -271,7 +271,8 @@ namespace Joyixir.GameManager.Level
         private static void IncreasePlayerLevel()
         {
             PlayerLevel++;
-            OnLevelUnlocked?.Invoke(PlayerLevel);
+            if(GetLevelAttempts(PlayerLevel) == 0)
+                OnLevelUnlocked?.Invoke(PlayerLevel);
         }
     }
 }
