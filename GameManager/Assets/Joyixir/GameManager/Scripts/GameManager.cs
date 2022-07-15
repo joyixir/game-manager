@@ -53,6 +53,8 @@ namespace Joyixir.GameManager
                 Retry();
             if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow))
                 Skip();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow))
+                GoToPreviousLevel();
             if (UnityEngine.Input.GetKeyDown(KeyCode.F))
                 ForceFinish();
         }
@@ -102,6 +104,11 @@ namespace Joyixir.GameManager
         public static void Skip()
         {
             LevelManager.Instance.Skip();
+        }
+
+        private void GoToPreviousLevel()
+        {
+            LevelManager.Instance.InitializePreviousLevel();
         }
 
         public static void Retry()

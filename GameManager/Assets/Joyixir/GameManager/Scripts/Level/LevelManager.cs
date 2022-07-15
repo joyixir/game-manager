@@ -144,6 +144,13 @@ namespace Joyixir.GameManager.Level
             Initialize();
         }
 
+        internal void InitializePreviousLevel()
+        {
+            ForceLose();
+            DecreasePlayerLevel();
+            Initialize();
+        }
+
         internal void Retry()
         {
             CurrentLevel.ForceFinishLevel(LevelFinishStatus.Retry);
@@ -266,6 +273,11 @@ namespace Joyixir.GameManager.Level
         private int CalculateMoneyFromScore(int score)
         {
             return score;
+        }
+
+        private static void DecreasePlayerLevel()
+        {
+            PlayerLevel--;
         }
 
         private static void IncreasePlayerLevel()
