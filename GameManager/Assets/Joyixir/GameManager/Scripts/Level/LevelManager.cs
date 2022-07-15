@@ -144,6 +144,13 @@ namespace Joyixir.GameManager.Level
             Initialize();
         }
 
+        internal void InitializePreviousLevel()
+        {
+            ForceLose();
+            DecreasePlayerLevel();
+            Initialize();
+        }
+
         internal void Retry()
         {
             CurrentLevel.ForceFinishLevel(LevelFinishStatus.Retry);
@@ -268,10 +275,16 @@ namespace Joyixir.GameManager.Level
             return score;
         }
 
+        private static void DecreasePlayerLevel()
+        {
+            PlayerLevel--;
+        }
+
         private static void IncreasePlayerLevel()
         {
             PlayerLevel++;
-            OnLevelUnlocked?.Invoke(PlayerLevel);
+            if(GetLevelAttempts(PlayerLevel) == 0)
+                OnLevelUnlocked?.Invoke(PlayerLevel);
         }
     }
 }
